@@ -1,0 +1,128 @@
+ <div class="row">
+   <div class="col-md-12">
+     <a href="/recommended" class="brand-color">
+       <h1 style="font-family: Calibri">
+         Рекомендуємо
+       </h1>
+     </a>
+     <div class="pull-right hidden-xs" style="margin-top: -42px">
+       <h4><a class="brand-color" style="text-decoration: underline" href="/recommended">Всi рекомендуємо</a></h4>
+     </div>
+   </div>
+      <span ng-repeat="recommended in recommendeds">
+          <div class="col-xs-6 col-sm-6 col-md-3" style="min-height: 450px">
+            <bk-book-tail book="recommended"></bk-book-tail>
+          </div>
+          <div class="clearfix visible-sm-block visible-xs-block" ng-if="$odd"></div>
+      </span>
+  </div>
+
+  <div class="row">
+   <div class="col-md-12">
+     <a href="/soon_on_sale" class="brand-color">
+       <h1 style="font-family: Calibri">
+         Скоро у продажу
+       </h1>
+     </a>
+     <div class="pull-right hidden-xs" style="margin-top: -42px">
+       <h4><a class="brand-color" style="text-decoration: underline" href="/soon_on_sale">Всi скоро у продажу</a></h4>
+     </div>
+   </div>
+   <span ng-repeat="soonOnSale in soonOnSales">
+          <div class="col-xs-6 col-sm-6 col-md-3" style="min-height: 450px">
+            <bk-book-tail book="soonOnSale"></bk-book-tail>
+          </div>
+          <div class="clearfix visible-sm-block visible-xs-block" ng-if="$odd"></div>
+   </span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+    <a href="/custom_top" class="brand-color">
+      <h1 style="font-family: Calibri">
+        Бестселери
+      </h1>
+    </a>
+    <div class="pull-right" style="margin-top: -42px">
+      <h4><a class="brand-color" style="text-decoration: underline" href="/custom_top">Всi бестселери</a></h4>
+    </div>
+    </div>
+      <span ng-repeat="bestseller in bestsellers">
+          <div class="col-xs-6 col-sm-6 col-md-3" style="min-height: 450px">
+            <bk-book-tail book="bestseller"></bk-book-tail>
+          </div>
+          <div class="clearfix visible-sm-block visible-xs-block" ng-if="$odd"></div>
+      </span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+       <a href="/catalog?sortBy=noveltiesFirst" class="brand-color">
+         <h1 style="font-family: Calibri">
+           Новинки
+         </h1>
+       </a>
+       <div class="pull-right" style="margin-top: -42px">
+         <h4><a class="brand-color" style="text-decoration: underline" href="/catalog?group=445&sortBy=noveltiesFirst">Всi новинки</a></h4>
+       </div>
+    </div>
+      <span ng-repeat="novelty in noveltys">
+           <div class="col-xs-6 col-sm-6 col-md-3" style="min-height: 450px">
+             <bk-book-tail book="novelty"></bk-book-tail>
+           </div>
+           <div class="clearfix visible-sm-block visible-xs-block" ng-if="$odd"></div>
+      </span>
+  </div>
+
+ <h1 style="font-family: Calibri;" class="brand-color">
+   Рецензії
+ </h1>
+ <div class="row">
+   <a href="/book?code={{comment.code}}" style="color: black;" ng-repeat="comment in comments">
+     <div class="col-sm-4 book-review" style="text-align: center">
+       <div class="book-review-inner">
+       <h4 class="brand-color">{{comment.bookName}}</h4>
+       <p class="brand-color">{{comment.bookAuthor}}</p>
+       <p style="text-align: center; text-decoration: none" ng-bind-html="getCommentText(comment.text)"></p>
+       <div class="brand-color" style="font-size: larger">
+          {{comment.name}}
+       </div>&nbsp;&nbsp;
+       <i style="font-size: smaller" class="glyphicon glyphicon-time"></i>&nbsp;
+       <span style="font-style: italic; font-size: smaller">{{toDateTime(comment.id)}}</span>
+       </div>
+     </div>
+   </a>
+ </div>
+
+ <div class="row">
+   <div class="col-md-12">
+     <a href="/news_list" class="brand-color">
+       <h1 style="font-family: Calibri">
+         Новини
+       </h1>
+     </a>
+     <div class="pull-right" style="margin-top: -42px">
+       <h4><a class="brand-color" style="text-decoration: underline" href="/news_list">Всi новини</a></h4>
+     </div>
+   </div>
+   <span ng-repeat="oneNews in news">
+     <div class="col-md-4 col-xs-12 col-sm-6" style="margin: 0 0; padding: 1px 1px;">
+       <bk-news-tile news="oneNews"></bk-news-tile>
+     </div>
+   </span>
+ </div>
+
+<!-- <div class="clearfix">-->
+<!--   <span style="padding: 1px"></span>-->
+<!-- </div>-->
+
+<!-- <h1 style="font-family: Calibri" class="brand-color">-->
+<!--   Події-->
+<!-- </h1>-->
+<!-- <div name="event_cards" class="events-container" dynamic-layout items="cards"></div>-->
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+<h2 class="brand-color">Пошук товарів</h2>
+
+<p>За вашим запитом <span class="brand-color">"{{search_string}}"</span>. Знайдено <span class="brand-color">{{goodsCount}}</span> товарів</p>
+
+<bk-pagination></bk-pagination>
+
+<div ng-repeat="book in books">
+  <div class="row" style="margin-top: 25px">
+    <bk-book-list book="book"></bk-book-list>
+  </div>
+</div>
+
+<bk-pagination></bk-pagination>
+
+<span class="jumbotron" ng-if="proceedSearch == true">
+   <md-progress-circular class="center-block" style="stroke: #0089cf; margin-top: 70px" md-mode="indeterminate"></md-progress-circular>
+</span>
+
+<div class="jumbotron" ng-if="books.length == 0 && proceedSearch != true && search_string != ''">
+   <p>На жаль, за таким запитом книги відсутні</p>
+</div>
+

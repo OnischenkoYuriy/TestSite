@@ -1,0 +1,151 @@
+<h1 class="brand-color">Відправка СМС</h1>
+<h3>Баланс {{balance}} грн.</h3>
+<div class="row">
+  <md-input-container>
+    <label>Номер</label>
+    <input ng-model="intDocNumber">
+  </md-input-container>
+  <md-input-container ng-hide="intDocNumber">
+    <label>Дата с</label>
+    <md-datepicker ng-model="dateStart"></md-datepicker>
+  </md-input-container>
+  <md-input-container ng-hide="intDocNumber">
+    <label>по</label>
+    <md-datepicker ng-model="dateEnd"></md-datepicker>
+  </md-input-container>
+  <!--<md-input-container style="margin-top: -10px" ng-hide="orderNumber">-->
+    <!--<label>Статус</label>-->
+    <!--<md-select ng-model="selectors.orderStateFilter">-->
+      <!--<md-option ng-repeat="state in orderStatesFilter" ng-value="state">-->
+        <!--{{state}}-->
+      <!--</md-option>-->
+    <!--</md-select>-->
+  <!--</md-input-container>-->
+  <md-input-container style="margin-top: -10px">
+    <label>Почта</label>
+    <md-select ng-model="selectors.kindOfPost">
+      <md-option ng-repeat="kindOfPost in kindOfPosts" ng-value="kindOfPost">
+        {{kindOfPost}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <md-button class="md-raised brand-color-background" ng-click="updateDocumentsTable()" ng-disabled="selectors.kindOfPost === undefined">
+    <i ng-show="saving" style="font-size: small" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    ЗАПОВНИТИ
+  </md-button>
+</div>
+<div ng-if="selectors.kindOfPost == 'Новая почта'">
+  <h1 class="brand-color">Новая почта</h1>
+  <md-button ng-click="loadFromNewPostByAPI()" ng-disabled="updateTable" class="md-raised brand-color-background" style="min-width: 100px; display: inline">
+    Завантажити по API
+    <i ng-show="updateTable" style="font-size: small" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  </md-button>
+  <md-button class="md-raised brand-color-background" ng-click="sendSMSNewPost()">
+    <i ng-show="SMSSending" style="font-size: small" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    Надіслати SMS
+  </md-button>
+  <table class="table-striped table-bordered table-hover" style="width: 100%">
+    <thead>
+      <th>
+        Дата
+      </th>
+      <th>
+        № документа
+      </th>
+      <th>
+        ФИО
+      </th>
+      <th>
+        Телефон
+      </th>
+      <th>
+        Ож. дата доставки
+      </th>
+      <th>
+        Состояние
+      </th>
+      <th>
+        SMS
+      </th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="document in newPostDocuments">
+        <td>
+          {{fromUnixTime(document.dateTime)}}
+        </td>
+        <td>
+          {{document.intDocNumber}}
+        </td>
+        <td>
+          {{document.recipientContactPerson}}
+        </td>
+        <td>
+          {{document.recipientContactPhone}}
+        </td>
+        <td>
+          {{fromUnixTime(document.estimatedDeliveryDate)}}
+        </td>
+        <td>
+          {{document.stateId}} : {{document.stateName}}
+        </td>
+        <td>
+          {{document.smshasSent}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div ng-if="selectors.kindOfPost == 'Укр. почта'">
+  <h1 class="brand-color">Укр почта</h1>
+<input type="file" nv-file-select="" uploader="uploaderFile" options="{formData: [{type: 'ukr_post_numbers'}]}" style="padding-bottom: 10px; display: inline">
+<md-button ng-click="saveFileItem()" ng-disabled="fileSaving || upl_itemFile === undefined" class="md-raised brand-color-background" style="min-width: 100px; display: inline">
+  Завантажити
+  <i ng-show="fileSaving" style="font-size: small" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+</md-button>
+  <md-button class="md-raised brand-color-background" ng-click="sendSMSUkrPost()">
+    <i ng-show="SMSSending" style="font-size: small" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    Надіслати SMS
+  </md-button>
+  <md-button ng-click="deleteTodayUkrPost()" ng-disabled="deletingDocuments" class="md-raised brand-color-background" style="min-width: 100px; display: inline">
+    Видалити невідправлені
+    <i ng-show="deletingDocuments" style="font-size: small" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  </md-button>
+    <table class="table-striped table-bordered table-hover" style="width: 100%">
+      <thead>
+      <th>
+        Дата
+      </th>
+      <th>
+        № документа
+      </th>
+      <th>
+        ФИО
+      </th>
+      <th>
+        Телефон
+      </th>
+      <th>
+        SMS
+      </th>
+      </thead>
+      <tbody>
+      <tr ng-repeat="document in ukrPostDocuments">
+        <td>
+          {{toDateTime(document.id)}}
+        </td>
+        <td>
+          {{document.intDocNumber}}
+        </td>
+        <td>
+          {{document.recipientContactPerson}}
+        </td>
+        <td>
+          {{document.recipientContactPhone}}
+        </td>
+        <td>
+          {{document.smshasSent}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</div>

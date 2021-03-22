@@ -1,0 +1,42 @@
+<div style="background-color: white; box-shadow: 1px 1px 10px #d8d8d8; max-width: 280px; border-radius: 4px">
+  <md-toolbar class="md-medium-tall" style="max-height: 44px; min-height: 44px;">
+    <div class="md-toolbar-tools  brand-color-background" style="font-family: Calibri;">
+      <a href="/cart" ng-click="ctrl.closeDialog()">
+        <h1>КОШИК</h1>
+      </a>
+      <span flex></span>
+      <md-button class="md-icon-button" style="text-align: right" ng-click="ctrl.closeDialog()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-height:400px;">
+  <div style="margin: 16px 0"></div>
+  <span ng-repeat="cartItems in ctrl.cartRef.GetCart().goodsTable">
+    <div class="row" style="margin: 0">
+      <md-button class="md-icon-button brand-color col-md-1" style="margin-top: 14px; padding: 0" ng-click="ctrl.removeFromCart(cartItems.code)">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </md-button>
+      <a href="/book?code={{cartItems.code}}" class="col-md-3" style="padding: 0">
+        <img class="img-responsive" style="min-height: 65px; max-height: 65px; min-width: 30px;" ng-src="/img/pics/{{cartItems.code}}.jpg"/>
+      </a>
+      <a href="/book?code={{cartItems.code}}" class="col-md-6" style="padding: 5px; line-height: 65px">
+        <p class="brand-color" style="
+          display: inline-block;
+          vertical-align: middle;
+          line-height: normal;
+           ">
+          {{cartItems.name}}
+        </p>
+      </a>
+    </div>
+    <hr ng-if="!$last" style="margin: 8px 0">
+  </span>
+  </md-dialog-content>
+  <div class="center-block" style="text-align: center; padding-bottom: 5px">
+    <md-button href="/cart" ng-click="ctrl.closeDialog()" style="margin-top: 14px" class="md-raised brand-color-background center-block">
+      Оформити замовлення
+    </md-button>
+  </div>
+</div>
+

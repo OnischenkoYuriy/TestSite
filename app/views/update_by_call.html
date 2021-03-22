@@ -1,0 +1,49 @@
+<h1 class="brand-color">Примусове оновлення</h1>
+<br>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th class="col-md-12">Дія</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-if="isAdmin()">
+    <th>
+      <button class="btn btn-default" ng-click="updateAllImages()">
+        Оновити картинки
+      </button>
+    </th>
+  </tr>
+  <tr ng-if="isEditor()">
+    <th>
+      <button class="btn btn-default" ng-click="updateCatalog()">
+        Оновити каталог
+      </button>
+    </th>
+  </tr>
+  <tr ng-if="isEditor()">
+    <th>
+      <button class="btn btn-default" ng-click="updateDescription()">
+        Оновити описання
+      </button>
+    </th>
+  </tr>
+  <tr ng-if="isEditor()">
+    <th>
+      <button class="btn btn-default" ng-click="updateCitiesNewPostShop()">
+        Оновити міста, склади Нової пошти та магазини
+      </button>
+    </th>
+  </tr>
+  <tr ng-if="isEditor()">
+    <th>
+      <button class="btn btn-default" ng-click="updateSiteMap()">
+        Оновити мапу сайту
+      </button>
+    </th>
+  </tr>
+  </tbody>
+</table>
+
+

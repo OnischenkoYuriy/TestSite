@@ -1,0 +1,175 @@
+<h1 style="color: #428bca">Мій кабінет</h1>
+<h4 style="padding-left: 7px;">{{username}}</h4>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="col-md-12">Дія</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-if="isAdmin()">
+      <th>
+        <a href="/users_edit_table">
+          <h4 class="text-left">Користувачі</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isAdmin()">
+      <th>
+        <a href="/log_last">
+          <h4 class="text-left">Логі</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/settings_edit_table">
+          <h4 class="text-left">Налаштування</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isCopyWriter()">
+      <th>
+        <a href="/news_edit_table">
+          <h4 class="text-left">Редагування новин</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/map_edit_table">
+          <h4 class="text-left">Редагування мапи</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/banners_edit_table">
+          <h4 class="text-left">Редагування банерів</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/update_by_call">
+          <h4 class="text-left">Примусове оновлення</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/ntml_pages_edit_table">
+          <h4 class="text-left">Редагування html сторінок</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/subscriptions">
+          <h4 class="text-left">Підписка на новини</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/comments_edit_table">
+          <h4 class="text-left">Редагування рецензій</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/wish_lists_report">
+          <h4 class="text-left">Звіт по листам бажань</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/promo_codes">
+          <h4 class="text-left">Промо-коди</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isEditor()">
+      <th>
+        <a href="/posts_delivery_documents">
+          <h4 class="text-left">Відправлення SMS</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isOrdersAdmin()">
+      <th>
+        <a href="/callbacks">
+          <h4 class="text-left">Передзвоніть мені</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isOrdersAdmin()">
+      <th>
+        <a href="/orders">
+          <h4 class="text-left">Замовлення</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isUser()">
+      <th>
+        <a href="/user_registration">
+          <h4 class="text-left">Редагувати мої дані</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isUser()">
+      <th>
+        <a href="/user_update_password">
+          <h4 class="text-left">Редагувати пароль</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isUser()">
+      <th>
+        <a href="/e_books">
+          <h4 class="text-left">Електронні книжки</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isUser()">
+      <th>
+        <a href="/wish_list">
+          <h4 class="text-left">Лист бажаннь</h4>
+        </a>
+      </th>
+    </tr>
+    <tr ng-if="isUser()">
+      <th>
+        <a href="/my_orders">
+          <h4 class="text-left">Мої замовлення</h4>
+        </a>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <h4>
+          ВАША КМ-ЗНИЖКА
+        </h4>
+        <a href="/ntml_page?name=km_discount">що таке КМ-ЗНИЖКА</a>
+        <p style="margin-top: 10px">Сума Ваших замовлень {{valueOfPurchases}} грн</p>
+        <div ng-if="valueOfPurchases <= 1000">
+          Наразі Ваша знижка становить <span class="brand-color">3%</span>
+          <div class="progress" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="progress-bar progress-bar-striped" role="progressbar"
+               ng-style="stylePercent">
+              {{progressBarPercent}}%
+            </div>
+          </div>
+          До максимальної знижки <span class="brand-color">5%</span> Вам залишилося {{1000 - valueOfPurchases}} грн.
+        </div>
+        <p ng-if="valueOfPurchases > 1000">
+          Наразі Ваша знижка становить <span class="brand-color">5%</span>
+          Ваша знижка - максимальна
+        </p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+

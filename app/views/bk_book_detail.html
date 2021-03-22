@@ -1,0 +1,5 @@
+<p ng-if="!isBookPage()" class="lead col-md-3 text-center"><a href="http://bukva.ua/catalog/browse/{{book.codeGroup}}/1/{{book.code}}"><button class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;купити в інтернет магазині</button></a></p>
+<p ng-if="!isBookPage()" class="col-md-9" ng-bind-html="description">{{description}}</p>
+<div ng-if="proceedSearch">
+  <img class="img-responsive center-block" src="/img/loading.gif">
+</div>

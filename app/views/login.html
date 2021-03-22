@@ -1,0 +1,46 @@
+ <div class="card card-container">
+    <!--<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />-->
+    <h2 style="margin-bottom: 23px" class="brand-color">Логін</h2>
+    <div class="alert alert-danger" ng-show="error">
+       Проблема входу в систему. Будь ласка, спробуйте ще.
+    </div>
+    <form class="form-horizontal" ng-submit="login()">
+      <div class="form-group">
+        <input type="text" name="email" id="email" class="form-control" placeholder="Email адреса" ng-model="email" required autofocus>
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Пароль" ng-model="password" required>
+      </div>
+      <!--<div class="form-group">
+        <div id="remember" class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Запам'ятати мене
+          </label>
+        </div>
+      </div>-->
+      <div class="form-group">
+        <md-button class="md-raised brand-color-background" type="submit" style="width: 100%; margin: 0px;">Увійти</md-button>
+      </div>
+      <div class="form-group">
+        <md-button class="md-raised" href="/user_registration" style="width: 100%; margin: 0px">Зареєструватися</md-button>
+      </div>
+      <p style="text-align: center">або зайти через:</p>
+      <div class="form-group">
+        <md-button class="col-xs-5 md-raised facebook-color-background" href="https://api.kmbooks.com.ua/api/login/facebook" style="margin: 0">
+          <i class="fa fa-facebook" style="font-size: large"></i>
+        </md-button>
+        <span class="col-xs-2"></span>
+        <!--<md-button class="col-md-3 md-raised vk-color-background" href="https://api.kmbooks.com.ua/api/login/vk" style="margin: 0 18px;">
+          <i class="fa fa-vk" style="font-size: large"></i>
+        </md-button>-->
+        <md-button class="col-xs-5 md-raised google-color-background" href="https://api.kmbooks.com.ua/api/login/google" style="margin: 0">
+          <i class="fa fa-google-plus" style="font-size: large"></i>
+        </md-button>
+      </div>
+      <!--<div class="form-group">
+        <a href="#" class="forgot-password">
+          Забули пароль?
+        </a>
+      </div>-->
+    </form>
+  </div><!-- /card-container -->

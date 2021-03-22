@@ -1,0 +1,434 @@
+<!doctype html>
+<html class="no-js" ng-app="angularApp" ng-controller="PageTitleCtrl">
+  <head>
+    <meta charset="utf-8">
+    <title ng-bind="title"></title>
+    <meta name="description" content="{{description}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
+    <link rel="stylesheet" href="bower_components/smartmenus/src/addons/bootstrap/jquery.smartmenus.bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+    <link rel="stylesheet" href="bower_components/jcrop/css/jquery.Jcrop.css" />
+    <link rel="stylesheet" href="bower_components/photoswipe/dist/photoswipe.css" />
+    <link rel="stylesheet" href="bower_components/photoswipe/dist/default-skin/default-skin.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_editor.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_editor.pkgd.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_style.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/char_counter.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/code_view.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/colors.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/draggable.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/emoticons.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/file.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/fullscreen.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/help.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/image_manager.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/image.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/line_breaker.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/quick_insert.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/special_characters.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/table.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/video.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/third_party/embedly.min.css" />
+    <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/third_party/spell_checker.min.css" />
+    <link rel="stylesheet" href="bower_components/owl.carousel/dist/assets/owl.carousel.css" />
+    <link rel="stylesheet" href="bower_components/owl.carousel/dist/assets/owl.theme.default.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <base href="/">
+
+  </head>
+  <body ng-cloak>
+    <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="header" ng-controller="HeaderCtrl">
+      <div class="navbar navbar-inverse navbar-fixed-top" style="opacity: 0.9">
+        <div id="header" class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" ng-click="ToggleCurtain();">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/" title="kmbooks">
+              <img class="hidden-xs" style="margin-top: -10px;"
+                   src="/images/logo_km2.png" width="152" height="42">
+              <img class="img-responsive visible-xs" style="margin-top: -10px;"
+                   src="/images/logo_km2.png" width="130">
+            </a>
+
+            <div class="pull-right visible-xs" style="margin-top: 12px; margin-right: 10px">
+                <a style="font-size: large; color: lightgrey; text-decoration: none; outline: none;">
+                  <span ng-click="toggleSearchMobile();">
+                    <span style="font-size: large;" class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span>
+                </a>
+              <span>
+                <a href="/cart" style="font-size: large; color: lightgrey; text-decoration: none">
+                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                  <span ng-if="itemsCount > 0" class="brand-color">&nbsp;{{itemsCount}}</span>&nbsp;&nbsp;
+                </a>
+              </span>
+            </div>
+
+            <form ng-show="showSearch" ng-submit="searchGo()" class="visible-xs" role="search">
+              <div class="input-group pull-right" style="width: 90%; margin-right: 40px; padding: 8px;">
+                <input ng-su type="text" style="background-color: inherit; color: white" bk-auto-focus ng-model="search_string" class="form-control" placeholder="Пошук на сайті">
+                <span class="input-group-btn">
+                   <span ng-click="searchReset()" class="close" style="top: 5px; outline: none"></span>
+                </span>
+              </div>
+            </form>
+
+          </div>
+
+          <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
+            <ul ng-show="!showSearch" class="nav navbar-nav" data-sm-skip="true">
+              <li class="dropdown animated fadeInLeft">
+                 <a href="/ntml_page?name=about_us" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ВИДАВНИЦТВО<span class="caret"></span></a>
+                 <ul class="dropdown-menu">
+                   <li><a href="/">Головна</a></li>
+                   <li><a href="/ntml_page?name=about_us">Про нас</a></li>
+                   <li><a href="/ntml_page?name=from_founder">Слово засновника</a></li>
+                   <li><a href="/news_list">Новини</a></li>
+<!--                   <li><a href="/ntml_page?name=social_project">Соціальний проект</a></li> -->
+                   <li><a href="/ntml_page?name=for_authors">Авторам</a></li>
+<!--                   <li><a href="http://collinsbigcat.kmbooks.com.ua/">Collins BIG CAT</a></li> -->
+<!--                   <li><a href="http://litkonkurs.kmbooks.com.ua/">Літконкурс</a></li>      -->
+<!--                   <li><a href="https://kmbooks.com.ua/stipend/">Стипендія від КМ-Букс</a></li> -->
+                   <li class="visible-sm"><a href="/ntml_page?name=price_list"></a></li>
+<!--                   <li><a href="/ntml_page?name=price_list">Умови для гуртових клієнтів</a></li>   -->
+                   <li class="visible-sm"><a href="/map">Пункти самовивозу</a></li>
+                   <li class="visible-sm"><a href="/ntml_page?name=conditions_of_purchase">Умови придбання</a></li>
+                   <li class="visible-sm"><a href="/ntml_page?name=delivery_and_payment">Доставка та оплата</a></li>
+                   <li class="visible-sm"><a href="/ntml_page?name=km_discount">Дисконтна програма</a></li>
+                   <li class="visible-sm"><a href="/contacts">КОНТАКТИ</a></li>
+                   <li class="visible-md"><a href="/contacts">КОНТАКТИ</a></li>
+                 </ul>
+              </li>
+              <li class="dropdown animated fadeInLeft" ng-class="catalogClass" bk-after-catalog-tree>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  КАТАЛОГ<span class="caret"></span>
+                  <!--<span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;-->
+                </a>
+                <ul class="dropdown-menu" ng-bind-html="strMenu"></ul>
+              </li>
+              <li class="dropdown animated fadeInLeft hidden-sm">
+                <a href="/map" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">КНИГАРНЯ<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/map">Пункти самовивозу</a></li>
+                  <li><a href="/ntml_page?name=conditions_of_purchase">Умови придбання</a></li>
+                  <li><a href="/ntml_page?name=delivery_and_payment">Доставка та оплата</a></li>
+                  <li><a href="/ntml_page?name=km_discount">Дисконтна програма</a></li>
+                </ul>
+              </li>
+              <li ng-repeat="item in menu" class="animated fadeInLeft hidden-sm hidden-md" ng-class="{active: item.route == menuActive}"><a href="{{item.route}}">{{item.label}}</a></li>
+            </ul>
+            <ul id="right-menu" class="nav navbar-nav navbar-right">
+              <li ng-show="!showSearch" class="hidden-xs" style="font-size: large">
+                <a ng-click="toggleSearch()"><span style="font-size: large;" class="glyphicon glyphicon-search"></span></a>
+              <li>
+              <li>
+                <a href="/wish_list" style="display: inline-block;">
+                  <span style="font-size: large" class="fa fa-heart"></span>
+                  <span ng-if="wishListItemsCount > 0" style="font-size: large" class="brand-color">&nbsp;{{wishListItemsCount}}</span>
+                </a>
+              <li>
+              <li id="cart" class="hidden-xs">
+                <a href="#" ng-click="openCartPopover()" style="font-size: large">
+                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                  <span ng-if="itemsCount > 0" class="brand-color">&nbsp;{{itemsCount}}</span>
+                </a>
+              <li>
+              <li ng-show="!authenticated">
+                <a href="/login" style="display: inline-block;">
+                  <span style="font-size: large" class="glyphicon glyphicon-user"></span>&nbsp;Вхід
+                </a>
+              <li>
+              <li ng-show="authenticated">
+                <a href="/edit">МІЙ КАБІНЕТ</a>
+              </li>
+              <li ng-show="authenticated" ng-class="{active: '\login' == menuActive}" ng-controller="LoginCtrl">
+                <a href="#" ng-click="logout()">ВИЙТИ</a>
+              </li>
+            </ul>
+            <form ng-show="showSearch" style="max-height: 30px" class="nav navbar-form hidden-xs" role="search">
+              <div class="input-group pull-right" style="margin-right: 50px">
+              <span class="input-group-btn" style="width: 20px">
+                <button ng-click="searchGo()" class="btn btn-default" style="margin-top: -7px; outline: none">
+                  <span class="glyphicon glyphicon-search" style="font-size: large; background-color: inherit"></span>
+                </button>
+              </span><!--background: rgba(63, 67, 71, 0.9);style="color: white;"-->
+                <input type="text" style="color: white" ng-style="searchInputStyle" bk-auto-focus ng-model="search_string" class="form-control animated fadeInRight" placeholder="Пошук на сайті">
+                <span class="input-group-btn">
+                 <span ng-click="searchReset()" class="close" style="top: 5px; outline: none"></span>
+              </span>
+              </div>
+            </form>
+          </div>
+          </div>
+      </div>
+    </div>
+    <div style="position: relative; min-height: 100vh;">
+    <span ng-controller="HeaderCtrl">
+      <div style="background-color: black; height: 53px"></div>
+<!--      <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides" ng-if="isMain()">-->
+<!--        <div class="point_img" ng-click="OnBannerClick(slide)" uib-slide ng-repeat="slide in slides track by slide.id" active="slide.active" index="slide.id">-->
+<!--          <div class="item" style="background-image:url('{{slide.image}}');"></div>-->
+<!--          <div style="font-family: Calibri" class="carousel-caption">-->
+<!--            <h1>{{slide.header}}</h1>-->
+<!--            <p>{{slide.text}}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <ng-owl-carousel class="owl-theme" owl-items="slides" owl-properties="{items: 1, smartSpeed:450, loop:true,
+      autoplay:true, autoplayTimeout:4000, autoplayHoverPause:false, nav: true,
+      navText: ['<i class=\'fa fa-chevron-left main-slider-arrow-left\'></i>', '<i class=\'fa fa-chevron-right main-slider-arrow-right\'></i>']}" ng-if="isMain()">
+         <div class="point_img" ng-click="OnBannerClick(slide)" ng-repeat="slide in slides track by slide.id">
+                     <img class="item" src="{{slide.image}}">
+                     <div style="font-family: Calibri" class="carousel-caption">
+                       <h1>{{slide.header}}</h1>
+                       <p>{{slide.text}}</p>
+                     </div>
+         </div>
+      </ng-owl-carousel>
+
+      <span ng-show="removeDiv()"></span>
+    </span>
+    <span ng-controller="HeaderCtrl">
+      <!--<div class="event-item" style="height: 30px;" ng-if="isMain()"></div>-->
+      <div class="event-item" style="height: 20px;" ng-if="!isMain()"></div>
+    </span>
+    <span ng-controller="HeaderCtrl">
+      <div style="height: 30px;" ng-if="!isMain()"></div>
+    </span>
+    <div class="container main-view">
+      <div ng-view="" autoscroll="true"></div>
+    </div>
+    <span ng-controller="HeaderCtrl" style="position: fixed; bottom: 20px; right: 10px; z-index: 1">
+      <md-fab-speed-dial md-open="true" class="md-fling"  md-direction="up">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-fab md-warn brand-color-background">
+            <i class="fa fa-bars" aria-hidden="true" style="font-size: large"></i>
+          </md-button>
+        </md-fab-trigger>
+
+        <md-fab-actions>
+          <md-button href="https://www.facebook.com/kmbooks.publishing" aria-label="Facebook" class="md-fab md-raised md-mini facebook-color-background">
+            <md-tooltip md-direction="left">Ми у Facebook</md-tooltip>
+            <i class="fa fa-facebook"></i>
+          </md-button>
+          <md-button href="https://www.instagram.com/km_books_ua" aria-label="Instagram" class="md-fab md-raised md-mini instagram-color-background">
+            <md-tooltip md-direction="left">Ми у Instagram</md-tooltip>
+            <i class="fa fa-instagram"></i>
+          </md-button>
+          <md-button ng-click="ShowSubscribeDialog()" aria-label="Subscribe" style="color: white;" class="md-fab md-raised md-mini brand-color-background">
+            <md-tooltip md-direction="left">Підписатися на наші розсилки</md-tooltip>
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          </md-button>
+          <md-button ng-click="ShowCallbackDialog()" aria-label="Callback" style="color: white;" class="md-fab md-raised md-mini brand-color-background">
+            <md-tooltip md-direction="left">(044) 228-78-24&nbsp;&nbsp;Передзвонити мені</md-tooltip>
+            <i class="fa fa-phone" aria-hidden="true"></i>
+          </md-button>
+        </md-fab-actions>
+      </md-fab-speed-dial>
+    </span>
+    <bk-footer></bk-footer>
+    </div>
+      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+      (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+      r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+      }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-65514473-1');
+      ga('send', 'pageview');
+    </script>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+    <script src="bower_components/rangy/rangy-core.js"></script>
+    <script src="bower_components/rangy/rangy-classapplier.js"></script>
+    <script src="bower_components/rangy/rangy-highlighter.js"></script>
+    <script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
+    <script src="bower_components/rangy/rangy-serializer.js"></script>
+    <script src="bower_components/rangy/rangy-textrange.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+    <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="bower_components/angular-scroll-animate/dist/angular-scroll-animate.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/smartmenus/src/jquery.smartmenus.js"></script>
+    <script src="bower_components/smartmenus/src/addons/bootstrap/jquery.smartmenus.bootstrap.js"></script>
+    <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+    <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
+    <script src="bower_components/jcrop/js/jquery.Jcrop.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/ng-jcrop/ng-jcrop.js"></script>
+    <script src="bower_components/photoswipe/dist/photoswipe.js"></script>
+    <script src="bower_components/photoswipe/dist/photoswipe-ui-default.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/froala_editor.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/align.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/char_counter.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/code_beautifier.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/code_view.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/colors.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/draggable.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/emoticons.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/entities.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/file.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/fullscreen.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/help.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/image.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/image_manager.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/inline_style.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/line_breaker.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/link.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/lists.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/paragraph_format.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/paragraph_style.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/print.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/quick_insert.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/quote.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/save.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/special_characters.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/table.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/url.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/video.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/plugins/word_paste.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/third_party/embedly.min.js"></script>
+    <script src="bower_components/froala-wysiwyg-editor/js/third_party/spell_checker.min.js"></script>
+    <script src="bower_components/owl.carousel/dist/owl.carousel.js"></script>
+    <script src="bower_components/angular-owl-carousel2/src/angular-owl-carousel-2.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfNNbpR86HGa23PuqGYgjbAsgG73e7g6g"></script>
+    <script id="widget-wfp-script" language="javascript" type="text/javascript" src="https://secure.wayforpay.com/server/pay-widget.js"></script>
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/controllers/angular_froala.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services/config.js"></script>
+    <script src="scripts/services/authorization.js"></script>
+    <script src="scripts/services/api.js"></script>
+    <script src="scripts/services/cart.js"></script>
+    <script src="scripts/services/order.js"></script>
+    <script src="scripts/services/utils.js"></script>
+    <script src="scripts/services/wish_list.js"></script>
+    <script src="scripts/services/cart_popover.js"></script>
+    <script src="scripts/services/page_title.js"></script>
+    <script src="scripts/services/wfp_listener.js"></script>
+    <script src="scripts/services/confirm_dialog.js"></script>
+    <script src="scripts/services/el_books.js"></script>
+    <script src="scripts/services/url_before_wrong_auth.js"></script>
+    <script src="scripts/services/subscribe_dialog.js"></script>
+    <script src="scripts/services/callback_dialog.js"></script>
+    <script src="scripts/directives/el_books_list.js"></script>
+    <script src="scripts/directives/thumb.js"></script>
+    <script src="scripts/directives/book_detail.js"></script>
+    <script src="scripts/directives/compare_to.js"></script>
+    <script src="scripts/directives/catalog.js"></script>
+    <script src="scripts/directives/catalog_tree.js"></script>
+    <script src="scripts/directives/pagination.js"></script>
+    <script src="scripts/directives/slider.js"></script>
+    <script src="scripts/directives/myphotoswipe.js"></script>
+    <script src="scripts/directives/buy_button.js"></script>
+    <script src="scripts/directives/book_tile.js"></script>
+    <script src="scripts/directives/catalog_buttons.js"></script>
+    <script src="scripts/directives/order_goods_table.js"></script>
+    <script src="scripts/directives/news_tile.js"></script>
+    <script src="scripts/directives/check_email.js"></script>
+    <script src="scripts/directives/book_list.js"></script>
+    <script src="scripts/directives/book_detail_info.js"></script>
+    <script src="scripts/directives/autofocus.js"></script>
+    <!--<script src="scripts/directives/socialshare.js"></script>-->
+    <script src="scripts/directives/price.js"></script>
+    <script src="scripts/directives/social_buttons.js"></script>
+    <script src="scripts/directives/el_books_buttons.js"></script>
+    <script src="scripts/directives/footer.js"></script>
+    <script src="scripts/directives/wish_list_user_list.js"></script>
+    <script src="scripts/controllers/log.js"></script>
+    <script src="scripts/controllers/books_table.js"></script>
+    <script src="scripts/controllers/book_view.js"></script>
+    <script src="scripts/controllers/requests_stat.js"></script>
+    <script src="scripts/controllers/search.js"></script>
+    <script src="scripts/controllers/detail_search.js"></script>
+    <script src="scripts/controllers/map.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/events_edit_table.js"></script>
+    <script src="scripts/controllers/map_edit_table.js"></script>
+    <script src="scripts/controllers/settings_edit_table.js"></script>
+    <script src="scripts/controllers/event_view.js"></script>
+    <script src="scripts/controllers/events_view.js"></script>
+    <script src="scripts/controllers/contacts.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/edit.js"></script>
+    <script src="scripts/controllers/banners_edit_table.js"></script>
+    <script src="scripts/controllers/update_by_call.js"></script>
+    <script src="scripts/controllers/users_edit_table.js"></script>
+    <script src="scripts/controllers/cart.js"></script>
+    <script src="scripts/controllers/my_orders.js"></script>
+    <script src="scripts/controllers/wish_list.js"></script>
+    <script src="scripts/controllers/news_edit_table.js"></script>
+    <script src="scripts/controllers/news.js"></script>
+    <script src="scripts/controllers/user_registration.js"></script>
+    <script src="scripts/controllers/html_pages.js"></script>
+    <script src="scripts/controllers/html_page_view.js"></script>
+    <script src="scripts/controllers/orders.js"></script>
+    <script src="scripts/controllers/news_list.js"></script>
+    <script src="scripts/controllers/page_title.js"></script>
+    <script src="scripts/controllers/callbacks.js"></script>
+    <script src="scripts/controllers/subscriptions.js"></script>
+    <script src="scripts/controllers/comments_edit_table.js"></script>
+    <script src="scripts/controllers/wish_lists_report.js"></script>
+    <script src="scripts/controllers/promo_codes.js"></script>
+    <script src="scripts/controllers/event_cards.js"></script>
+    <script src="scripts/controllers/dynamic-layout.js"></script>
+    <script src="scripts/controllers/e_books_view.js"></script>
+    <script src="scripts/controllers/posts_delivery_documents.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

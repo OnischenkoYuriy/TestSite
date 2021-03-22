@@ -1,0 +1,323 @@
+<div ng-show="completedOrder === undefined" class="row" style="margin-top: 10px">
+  <div class="col-md-6 table-responsive" style="padding-left: 5px; padding-right: 5px;">
+    <h4 class="brand-color">Кошик</h4>
+    <table ng-if="cart.goodsTable.length > 0" class="table-striped">
+      <caption>При замовленні на 1000.00 грн отримуєте	безкоштовну доставку по Україні</caption>
+      <thead>
+        <th class="col-md-1">
+
+        </th>
+        <th class="col-md-2">
+
+        </th>
+        <th class="col-md-5">
+          Товар
+        </th>
+        <th class="col-md-1">
+          Кільк
+        </th>
+        <th class="col-md-1">
+          Знижка
+        </th>
+        <th class="col-md-1">
+          Ціна
+        </th>
+        <th class="col-md-1">
+          Сума
+        </th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="cartItems in cart.goodsTable">
+          <td style="text-align: center">
+            <span><i class="fa fa-times-circle-o" aria-hidden="true"
+                     style="cursor: pointer;" ng-click="removeFromCart(cartItems.code)"></i></span>
+          </td>
+          <td>
+            <a href="/book?code={{cartItems.code}}">
+              <img class="img-responsive" style=" min-width: 70px" ng-src="/img/pics/{{cartItems.code}}.jpg"/>
+            </a>
+          </td>
+          <td style="text-align: center; ">
+            <a class="item-in-cart-name" href="/book?code={{cartItems.code}}">
+              <p>{{cartItems.name}}</p>
+            </a>
+          </td>
+          <td>
+            <input class="form-control" ng-change="ChangeQuantity()" ng-model="cartItems.quantity">
+          </td>
+          <td style="text-align: center">
+            <p>{{cartItems.discount}}%</p>
+          </td>
+          <td style="text-align: center">
+            <p>{{cartItems.price | currency: ""}}</p>
+          </td>
+          <td style="text-align: center">
+            <p>{{cartItems.amount | currency: ""}} грн</p>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Всього:
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th colspan="2" style="text-align: right">
+            {{cart.orderAmount | currency: ""}} грн
+          </th>
+        </tr>
+        <tr ng-if="promoCode">
+          <th colspan="2">
+            Промо-код:
+          </th>
+          <th>{{promoCode.name}}</th>
+          <th></th>
+          <th></th>
+          <th colspan="2" style="text-align: right">
+            {{promoCode.percent}}%
+          </th>
+        </tr>
+        <tr ng-if="promoCode">
+          <th colspan="2">
+            З промо-кодом
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th colspan="2" style="text-align: right">
+            {{orderAmountWithDiscount | currency: ""}} грн
+          </th>
+        </tr>
+        <tr ng-if="cart.orderAmount !== orderAmountWithDiscount">
+          <th colspan="2">
+            <p>з урахуванням знижки:</p>
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th colspan="2" style="text-align: right">
+            {{orderAmountWithDiscount | currency: ""}} грн
+          </th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pull-right" style="width: 50%; text-align: right; margin-top: 20px" ng-show="!promoCode && cart.goodsTable.length > 0">
+      <p style="font-weight: bold">Додати промокод</p>
+      <input class="form-control" ng-model="promoCodeName">
+      <md-button style="margin-right: 0" class="md-raised brand-color-background" ng-disabled="!(cart.goodsTable.length > 0) || savingInProgress || !(promoCodeName.length > 0)" ng-click="ApplyPromoCode()">
+        Застосувати
+      </md-button>
+    </div>
+    <div class="pull-right" style="width: 50%; text-align: right; margin-top: 20px" ng-show="promoCode">
+      <div ng-if="cart.orderAmount < promoCode.minOrderAmount">
+        <p class="alert alert-warning">﻿Обери собі ще книг! Знижка {{promoCode.percent}}% діє на замовлення сумою від {{promoCode.minOrderAmount}} гривень.</p>
+      </div>
+      <p style="font-weight: bold">Видалити промокод: {{promoCode.name}}</p>
+      <md-button style="margin-right: 0" class="md-raised brand-color-background" ng-click="RemovePromoCode()">
+        Видалити
+      </md-button>
+    </div>
+    <div ng-if="!cart.goodsTable.length > 0" class="jumbotron" style="margin-top: 20px">
+      <p>Ваш кошик порожній</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4 class="brand-color">Доставка та оплата</h4>
+    <p>Замовлення №{{order.number}}</p>
+    <!--<md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="city in cities" md-item-text="city.name">
+      <span md-highlight-text="searchText">{{city.name}}</span>
+    </md-autocomplete>-->
+    <md-switch ng-model="selector.interDelivery" ng-change="ChangeInterDelivery()">
+        Міжнародна доставка
+    </md-switch>
+    <div class="form-group">
+      <label>
+        Місто
+      </label>
+      <select ng-disabled="selector.interDelivery" class="form-control" ng-model="selector.city" ng-change="SelectCity()" ng-options="city as city.name for city in cities">
+      </select>
+    </div>
+    <div class="form-group">
+      <label>
+        Тип доставки
+      </label>
+      <select class="form-control" ng-model="selectedDelivery" ng-change="SelectDelivery()" ng-options="delivery as delivery.name for delivery in selectedCity.delivery">
+      </select>
+    </div>
+    <div class="form-group">
+      <label>
+        Метод платежу
+      </label>
+      <select class="form-control" ng-model="selectedPayment" ng-change="SelectPayment()" ng-options="payment as payment.name for payment in selectedDelivery.payments">
+      </select>
+    </div>
+    <div ng-show="selectedDelivery.id === '5'" class="form-group">
+      <label>
+        Відділення Нової Пошти:
+      </label>
+      <select class="form-control" ng-model="selectedNewPostWHS" ng-options="newPostWHS as newPostWHS.name for newPostWHS in selectedCity.newPostWHS">
+      </select>
+      <!--<div class="row">
+        <div class="col-md-6">-->
+          <table style="margin: 10px 0 0 6px" class="table-striped" width = "100%">
+          <caption>
+            {{selectedNewPostWHS.name}}. {{selectedNewPostWHS.type}}. Часи роботи.
+          </caption>
+          <thead>
+            <th class="col-md-6">
+              День:
+            </th>
+            <th class="col-md-6">
+              Години:
+            </th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Понеділок</td>
+              <td>{{selectedNewPostWHS.open[1]}}</td>
+            </tr>
+            <tr>
+              <td>Вівторок</td>
+              <td>{{selectedNewPostWHS.open[2]}}</td>
+            </tr>
+            <tr>
+              <td>Середа</td>
+              <td>{{selectedNewPostWHS.open[3]}}</td>
+            </tr>
+            <tr>
+              <td>Чертвер</td>
+              <td>{{selectedNewPostWHS.open[4]}}</td>
+            </tr>
+            <tr>
+              <td>Пятниця</td>
+              <td>{{selectedNewPostWHS.open[5]}}</td>
+            </tr>
+            <tr>
+              <td>Субота</td>
+              <td>{{selectedNewPostWHS.open[6]}}</td>
+            </tr>
+            <tr>
+              <td>Неділя</td>
+              <td>{{selectedNewPostWHS.open[7]}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!--</div>
+        <div class="col-md-6">
+
+        </div>
+      </div>-->
+    </div>
+
+    <div ng-show="selectedDelivery.id === '3'" class="form-group">
+      <label>
+        Магазин:
+      </label>
+      <select class="form-control" ng-model="selectedShop" ng-options="shop as shop.name for shop in selectedCity.shops">
+      </select>
+      <div style="margin: 10px 0 0 6px">
+        <a href="/map?code_shop={{selectedShop.sprut_code}}">
+          {{selectedShop.name}}
+        </a>
+      </div>
+      <p style="margin: 10px 0 0 6px" ng-bind-html="selectedShop.description"></p>
+    </div>
+    <h4 class="brand-color">Контактна особа</h4>
+
+    <form name="userForm" ng-submit="registration.submit(userForm.$valid)">
+        <div class="form-group">
+          <label>
+            Email:
+          </label>
+          <input name="email" type="email" class="form-control" placeholder="email"  ng-model="email" required>
+          <div style="color: red" ng-messages="userForm.email.$error">
+            <div ng-message="required">Обов'язковий для заповнення</div>
+            <div ng-message="email">Введіть корректний email</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Прізвище, ім'я:
+          </label>
+          <input name="name" type="text" class="form-control" ng-model="name" minlength="3"
+                 required>
+          <div style="color: red" ng-messages="userForm.name.$error">
+            <div ng-message="required">Обов'язкове для заповнення</div>
+            <div ng-message="minlength">Мінімальна довжина ім'я повинна будти 3 символи</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Телефон:
+          </label>
+          <input ng-hide="selector.interDelivery" name="phone" ui-mask="+38 (999) 9999999"  ui-mask-placeholder ui-mask-placeholder-char="space"
+                 type="text" class="form-control" ng-model="phone" minlength="10" required>
+          <input ng-show="selector.interDelivery" name="phone"
+                 type="text" class="form-control" ng-model="phone" minlength="10" required>
+          <div style="color: red" ng-messages="userForm.phone.$error">
+            <div ng-message="required">Обов'язковий для заповнення</div>
+            <div ng-message="minlength">Мінімальна довжина телефона повинна будти 10 символів</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Адреса:
+          </label>
+          <span ng-if="selectedDelivery.id === '1' || selectedDelivery.id === '4' || selectedDelivery.id === '6'">
+             <input name="address" type="text" class="form-control" ng-model="selector.address" required>
+          </span>
+          <span ng-if="selectedDelivery.id === '3' || selectedDelivery.id === '5'">
+             <input name="address" type="text" class="form-control" ng-model="selector.address">
+          </span>
+          <div style="color: red" ng-messages="userForm.address.$error">
+            <div ng-message="required">Обов'язковий для заповнення</div>
+          </div>
+        </div>
+
+        <div class="form-group" ng-if="selectedDelivery.id === '4' || selectedDelivery.id === '6'">
+          <label>
+            Індекс:
+          </label>
+          <input name="zip" type="text" class="form-control" ng-model="selector.zip" required>
+          <div style="color: red" ng-messages="userForm.zip.$error">
+            <div ng-message="required">Обов'язковий для заповнення</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Коментар:
+          </label>
+          <textarea class="form-control" placeholder="Додати коментар" ng-model="orderComment"></textarea>
+        </div>
+
+        <p>Вартість товарів: {{cart.orderAmount | currency: ""}} грн</p>
+        <p ng-if="cart.orderAmount !== orderAmountWithDiscount">Вартість товарів з урахуванням знижки: {{orderAmountWithDiscount | currency: ""}} грн</p>
+        <!--<p ng-if="promoCode">Вартість товарів з урахуванням промо-коду: {{orderAmountWithDiscount | currency: ""}} грн</p>-->
+        <p ng-hide="selector.interDelivery">Вартість доставки: {{deliveryCost | currency: ""}} грн</p>
+        <p ng-show="selector.interDelivery">Вартість доставки: розраховується менеджером</p>
+        <p>До сплати: {{totalAmount | currency: ""}} грн</p>
+        <p style="font-size: small"><span style="color: red">*</span>- остаточна вартість замовлення буде відома при надходженні товару на склад</p>
+        <p ng-show="selector.interDelivery" style="font-size: small"><span style="color: red">**</span>- вартість доставки розраховується кожен раз індивідуально та залежить від курсу гривні країни, в яку здійснюється доставка, а також способу доставки товару.</p>
+        <md-button style="margin-left: 0" class="md-raised brand-color-background" ng-disabled="!userForm.$valid || !(cart.goodsTable.length > 0) || savingInProgress" ng-click="SaveOrder()">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          Замовити
+          <i ng-show="savingInProgress" style="font-size: small" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        </md-button>
+    </form>
+
+  </div>
+</div>
+<div ng-show="completedOrder !== undefined" class="row" style="margin-top: 10px">
+  <div class="jumbotron">
+    <p>
+      Ваше замовлення № <span class="brand-color">{{completedOrder.number}}</span>
+      на суму <span class="brand-color">{{completedOrder.totalAmount | currency: ""}}</span> грн. успішно оформлено
+    </p>
+  </div>
+</div>

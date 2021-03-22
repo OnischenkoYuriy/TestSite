@@ -1,0 +1,40 @@
+<div class="bukva-item">
+  <div style="text-align: center">
+    <div style="display: inline-block; position: relative;">
+      <div ng-if="book.actionKM != null && book.actionKM >= 5" style="position: absolute; top: -3px; left: -3px">
+        <img width="60" src="img/minus_{{book.actionKM}}_baloon.png">
+      </div>
+      <div ng-if="book.elBookExist" style="position: absolute; bottom: -15px; right: -10px">
+        <md-button ng-href="/book?code={{book.code}}" class="md-raised brand-color-background">+ E-Book</md-button>
+      </div>
+      <a href="/book?code={{book.code}}">
+        <img class="img-responsive" src="{{book.image}}"> </img>
+      </a>
+    </div>
+  </div>
+  <div style="text-align:center; font-size: 15px; margin-top: 10px; margin-bottom: 5px">
+    <a href="/book?code={{book.code}}" style="color: black">
+      {{book.name}}
+    </a>
+  </div>
+  <bk-price book="book"></bk-price>
+  <div class="bukva-hidden">
+    <!--<a href="" ng-click="AddToWishList(book); $event.preventDefault();" style="position: absolute; top: 15px; right: 15px">
+      <i ng-class="wishHeart" ng-mouseleave="onMouseLeave()" ng-mouseenter="onMouseEnter()" style="font-size: medium" aria-hidden="true"></i>
+    </a>-->
+    <md-button class="md-icon-button" ng-click="AddToWishList(book)"
+               style="position: absolute; top: 8px; right: 4px" aria-label="Favorite">
+      <i ng-class="wishHeart" ng-mouseleave="onMouseLeave()" ng-mouseenter="onMouseEnter()" style="font-size: medium;"></i>
+    </md-button>
+    <p style="margin-top: 9px; text-align: center">
+      <bk-buy-button book = "book"></bk-buy-button>
+    </p>
+    <p>
+      <b> Код: </b> {{book.code}}
+      <div ng-if="book.author"> <b>Автор:&nbsp;</b><a href="/catalog?reload=true&authors={{book.author}}" ng-click="catalogAuthor()">{{book.author}}</a></div>
+    </p>
+    <p class="hidden-xs">
+      <span ng-if="book.description">{{book.description.substring(0, 212) + "..."}}</span>
+    </p>
+  </div>
+</div>
